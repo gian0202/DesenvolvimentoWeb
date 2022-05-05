@@ -4,29 +4,34 @@ require 'header.php'
 
     <div class="inicio">
             <div class="bg-light p-4 mb-4 rounded">
-                <h1 class="text-center">Formulario para Contato</h1>
-            </div>
+                <h1 class="text-center">Destino</h1>
+<?php
+$data = date("d/m/Y H:i:s");
+$nome = $_POST["nome"];
+$email = $_POST["email"];
+$mensagem = $_POST["mensagem"];
 
-            <form>
-            <?php
-    
-    $nome = filter_input(INPUT_GET, "nome", FILTER_SANITIZE_SPECIAL_CHARS);
-    $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-    $menssagem = filter_input(INPUT_GET, "menssagem", FILTER_SANITIZE_SPECIAL_CHARS);
-    $data = filter_input(INPUT_GET, "data", FILTER_SANITIZE_SPECIAL_CHARS);
-    $hora = filter_input(INPUT_GET, "hora", FILTER_SANITIZE_SPECIAL_CHARS);
-    
-    ?>
-    <?php
-    echo "Nome informado: " .$nome . "<br>";
-    echo "Email informado: " .$email . "<br>";
-    echo "Menssagem: " . $menssagem . "<br>";
-    echo "data: " . $data . "<br>";
-    echo "Hora: " . $hora . "<br>";
+?>  
+<?php
+echo "nome informado: ". $nome . "<br>";
+echo "Email: " . $email . "</br>";
+echo "Mensagem" . $mensagem . "</br>";
+echo "data e hora: " . $data . "</br>"
 ?>
+<br>
+<input class="btn btn-primary" type="button" value="Voltar" onclick="history.go(-1)">
+<?php
 
-</form>
-       </div>
+
+?>
+<?php 
+
+$arquivo = $nome . '.txt';
+$fp = fopen($arquivo,"a+");
+fwrite($fp, "Nome informado:" . $nome . "\r\n" . "EMail: " . $email . "\r\n" .  "Mensagem: " . $mensagem . 
+"\r\n" . "Data e Hora: " . $data
+);
+?>
 <?php
 require 'footer.php'
 ?>
